@@ -9,19 +9,19 @@ public class Program {
     public static void main(String[] args) {
         setUpCanvas(canvas);
         setUpFrame(frame, canvas);
-        applyListeners();
     }
 
     private static void setUpFrame(Frame frame, Canvas canvas) {
         frame.add(canvas);
         frame.setSize(canvas.getWidth(), canvas.getHeight());
         frame.setVisible(true);
+        frame.setResizable(false);
         applyListeners();
     }
 
     private static void setUpCanvas(Canvas canvas) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        canvas.setSize(screenSize.width, screenSize.height);
+        canvas.setSize((int) (screenSize.width * 0.7), (int) (screenSize.height * 0.7));
         canvas.setBackground(Color.WHITE);
     }
 
