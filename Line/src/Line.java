@@ -26,7 +26,10 @@ public class Line extends Figure {
 
     @Override
     public void moveTo(int x, int y) {
-
+        this.xDelta = x + (xDelta - horizontalPosition);
+        this.yDelta = y + (yDelta - verticalPosition);
+        this.horizontalPosition = x;
+        this.verticalPosition = y;
     }
 
     public void changeRotation(int angle) {
