@@ -1,26 +1,31 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Line extends Figure {
     private int length, rotation;
-    protected Line(int horizontalPosition, int verticalPosition, Canvas canvas) {
-        super(horizontalPosition, verticalPosition, canvas);
+    protected Line(int horizontalPosition, int verticalPosition) {
+        super(horizontalPosition, verticalPosition);
+        this.length = this.getRandInt(50, 600);
+        this.yDelta = verticalPosition + this.getRandInt(20, 750);
+        this.xDelta = horizontalPosition + this.getRandInt(10+length/2, 1290-length/2);
     }
 
-    public Line(int horizontalPosition, int verticalPosition, Canvas canvas, int length) {
-        this(horizontalPosition, verticalPosition, canvas);
+    public Line(int horizontalPosition, int verticalPosition, int length) {
+        this(horizontalPosition, verticalPosition);
         this.length = length;
     }
-    public Line(int horizontalPosition, int verticalPosition, Canvas canvas, int length, int rotation) {
-        this(horizontalPosition, verticalPosition, canvas, length);
+
+    public Line(int horizontalPosition, int verticalPosition, int length, int rotation) {
+        this(horizontalPosition, verticalPosition, length);
         this.rotation = rotation;
     }
     @Override
-    public void show(int x, int y) {
-
+    public void show(Graphics g, int x, int y) {
+        g.drawLine(xDelta-length/2, yDelta, xDelta+length/2, yDelta);
     }
 
     @Override
-    void moveTo(int x, int y) {
+    public void moveTo(int x, int y) {
 
     }
 
