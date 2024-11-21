@@ -12,6 +12,7 @@ public class Program {
     static JButton buttonRectangle = new JButton("Создать прямоугольник");
     static JButton buttonCircle = new JButton("Создать круг");
     static JButton buttonRing = new JButton("Создать кольцо");
+    static JButton buttonEllipse = new JButton("Создать эллипс");
     static DrawingPanel drawingPanel = new DrawingPanel();
     static ArrayList<Figure> figures = new ArrayList<>();
 
@@ -29,6 +30,7 @@ public class Program {
         buttonRectangle.setBounds(frame.getWidth()-BUTTON_WIDTH, 55, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonCircle.setBounds(frame.getWidth()-BUTTON_WIDTH, 110, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonRing.setBounds(frame.getWidth()-BUTTON_WIDTH, 165, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonEllipse.setBounds(frame.getWidth()-BUTTON_WIDTH, 220, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         applyListeners();
 
@@ -37,6 +39,7 @@ public class Program {
         frame.add(buttonRectangle);
         frame.add(buttonCircle);
         frame.add(buttonRing);
+        frame.add(buttonEllipse);
 
         frame.add(drawingPanel);
         drawingPanel.setBounds(0, 0, frame.getWidth()-BUTTON_WIDTH, frame.getHeight());
@@ -69,6 +72,11 @@ public class Program {
             figures.add(ring);
             drawingPanel.repaint();
         });
+        buttonEllipse.addActionListener(al -> {
+            Ellipse ellipse = (Ellipse) createFigure(FigureType.ELLIPSE);
+            figures.add(ellipse);
+            drawingPanel.repaint();
+        });
     }
 
     private static Figure createFigure(FigureType type) {
@@ -77,6 +85,7 @@ public class Program {
             case LINE -> new Line(0, 0);
             case RECTANGLE -> new Rectangle(0, 0);
             case RING -> new Ring(0, 0);
+            case ELLIPSE -> new Ellipse(0, 0);
         };
     }
 

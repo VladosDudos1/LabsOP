@@ -20,7 +20,7 @@ public class Circle extends Figure {
     @Override
     public void show(Graphics g, int x, int y) {
         g.setColor(getColor());
-        g.drawOval(this.endPoint.getHorizontalPosition(), this.endPoint.getVerticalPosition(), radius * 2, radius * 2);
+        g.drawOval(this.endPoint.getHorizontalPosition(), this.endPoint.getVerticalPosition(), getRadius() * 2, getRadius() * 2);
     }
 
     @Override

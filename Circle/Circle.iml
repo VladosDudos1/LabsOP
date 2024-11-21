@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Figure" />
     <orderEntry type="module" module-name="Dot" />
+    <orderEntry type="module" module-name="LabsProject" />
   </component>
 </module>
