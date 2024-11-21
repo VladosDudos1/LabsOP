@@ -1,5 +1,6 @@
 public enum FigureType {
     RECTANGLE,
     CIRCLE,
-    LINE
+    LINE,
+    RING
 }

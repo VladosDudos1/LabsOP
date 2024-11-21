@@ -3,10 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Circle/Circle.iml" filepath="$PROJECT_DIR$/Circle/Circle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Dot/Dot.iml" filepath="$PROJECT_DIR$/Dot/Dot.iml" />
       <module fileurl="file://$PROJECT_DIR$/Figure/Figure.iml" filepath="$PROJECT_DIR$/Figure/Figure.iml" />
       <module fileurl="file://$PROJECT_DIR$/LabsProject.iml" filepath="$PROJECT_DIR$/LabsProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/Line/Line.iml" filepath="$PROJECT_DIR$/Line/Line.iml" />
       <module fileurl="file://$PROJECT_DIR$/Rectangle/Rectangle.iml" filepath="$PROJECT_DIR$/Rectangle/Rectangle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ring/Ring.iml" filepath="$PROJECT_DIR$/Ring/Ring.iml" />
     </modules>
   </component>
 </project>

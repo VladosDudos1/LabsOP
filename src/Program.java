@@ -11,6 +11,7 @@ public class Program {
     static JButton buttonLine = new JButton("Создать линию");
     static JButton buttonRectangle = new JButton("Создать прямоугольник");
     static JButton buttonCircle = new JButton("Создать круг");
+    static JButton buttonRing = new JButton("Создать кольцо");
     static DrawingPanel drawingPanel = new DrawingPanel();
     static ArrayList<Figure> figures = new ArrayList<>();
 
@@ -27,6 +28,7 @@ public class Program {
         buttonLine.setBounds(frame.getWidth()-BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonRectangle.setBounds(frame.getWidth()-BUTTON_WIDTH, 55, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonCircle.setBounds(frame.getWidth()-BUTTON_WIDTH, 110, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonRing.setBounds(frame.getWidth()-BUTTON_WIDTH, 165, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         applyListeners();
 
@@ -34,6 +36,7 @@ public class Program {
         frame.add(buttonLine);
         frame.add(buttonRectangle);
         frame.add(buttonCircle);
+        frame.add(buttonRing);
 
         frame.add(drawingPanel);
         drawingPanel.setBounds(0, 0, frame.getWidth()-BUTTON_WIDTH, frame.getHeight());
@@ -61,6 +64,11 @@ public class Program {
             figures.add(circle);
             drawingPanel.repaint();
         });
+        buttonRing.addActionListener(al -> {
+            Ring ring = (Ring) createFigure(FigureType.RING);
+            figures.add(ring);
+            drawingPanel.repaint();
+        });
     }
 
     private static Figure createFigure(FigureType type) {
@@ -68,6 +76,7 @@ public class Program {
             case CIRCLE -> new Circle(0, 0);
             case LINE -> new Line(0, 0);
             case RECTANGLE -> new Rectangle(0, 0);
+            case RING -> new Ring(0, 0);
         };
     }
 

@@ -6,8 +6,9 @@ public class Line extends Figure {
     protected Line(int horizontalPosition, int verticalPosition) {
         super(horizontalPosition, verticalPosition);
         this.length = this.getRandInt(50, 600);
-        this.yDelta = verticalPosition + this.getRandInt(20, 750);
-        this.xDelta = horizontalPosition + this.getRandInt(10+length/2, 1290-length/2);
+        this.endPoint.setVerticalPosition(verticalPosition + this.getRandInt(20, 750));
+        this.endPoint.setHorizontalPosition(horizontalPosition + this.getRandInt(10+length/2, 1290-length/2));
+        System.out.println("Создалась линия");
     }
 
     public Line(int horizontalPosition, int verticalPosition, int length) {
@@ -19,17 +20,19 @@ public class Line extends Figure {
         this(horizontalPosition, verticalPosition, length);
         this.rotation = rotation;
     }
+
     @Override
     public void show(Graphics g, int x, int y) {
-        g.drawLine(xDelta-length/2, yDelta, xDelta+length/2, yDelta);
+        g.setColor(getColor());
+        g.drawLine(this.endPoint.getHorizontalPosition()-length/2, this.endPoint.getVerticalPosition(), this.endPoint.getHorizontalPosition()+length/2, this.endPoint.getVerticalPosition());
     }
 
     @Override
     public void moveTo(int x, int y) {
-        this.xDelta = x + (xDelta - horizontalPosition);
-        this.yDelta = y + (yDelta - verticalPosition);
-        this.horizontalPosition = x;
-        this.verticalPosition = y;
+        this.endPoint.setHorizontalPosition(x + (this.endPoint.getHorizontalPosition() - this.startPoint.getHorizontalPosition()));
+        this.endPoint.setVerticalPosition(y + (this.endPoint.getHorizontalPosition() - this.startPoint.getHorizontalPosition()));
+        this.startPoint.setHorizontalPosition(x);
+        this.startPoint.setVerticalPosition(y);
     }
 
     public void changeRotation(int angle) {

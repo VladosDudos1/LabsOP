@@ -7,11 +7,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Figure" />
-    <orderEntry type="module" module-name="Line" />
-    <orderEntry type="module" module-name="Rectangle" />
-    <orderEntry type="module" module-name="Circle" />
-    <orderEntry type="module" module-name="Dot" />
-    <orderEntry type="module" module-name="Ring" />
   </component>
 </module>

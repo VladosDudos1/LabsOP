@@ -12,25 +12,23 @@ public class Circle extends Figure {
     protected Circle(int horizontalPosition, int verticalPosition) {
         super(horizontalPosition, verticalPosition);
         this.radius = getRandInt(5, 299);
-        this.xDelta = horizontalPosition + this.getRandInt(0, 1300 - (radius * 2) - 5);
-        this.yDelta = verticalPosition + this.getRandInt(0, 750-radius*2);
+        this.endPoint.setHorizontalPosition(horizontalPosition + this.getRandInt(0, 1300 - (radius * 2) - 5));
+        this.endPoint.setVerticalPosition(verticalPosition + this.getRandInt(0, 750-radius*2));
+        System.out.println("Создалась окружность");
     }
 
     @Override
     public void show(Graphics g, int x, int y) {
-        g.drawOval(xDelta, yDelta, radius * 2, radius * 2);
-        if (radius > 250) {
-            System.out.println(radius);
-            System.out.println(yDelta);
-        }
+        g.setColor(getColor());
+        g.drawOval(this.endPoint.getHorizontalPosition(), this.endPoint.getVerticalPosition(), radius * 2, radius * 2);
     }
 
     @Override
     public void moveTo(int x, int y) {
-        this.xDelta = x + (xDelta - horizontalPosition);
-        this.yDelta = y + (yDelta - verticalPosition);
-        this.horizontalPosition = x;
-        this.verticalPosition = y;
+        this.endPoint.setHorizontalPosition(x + (this.endPoint.getHorizontalPosition() - this.startPoint.getHorizontalPosition()));
+        this.endPoint.setVerticalPosition(y + (this.endPoint.getVerticalPosition() - this.startPoint.getVerticalPosition()));
+        this.startPoint.setHorizontalPosition(x);
+        this.startPoint.setVerticalPosition(y);
     }
 
     public void setRadius(int radiusDelta) {

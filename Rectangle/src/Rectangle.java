@@ -14,20 +14,22 @@ public class Rectangle extends Figure {
         super(horizontalPosition, verticalPosition);
         this.width = this.getRandInt(20, 500);
         this.height = this.getRandInt(20, 500);
-        this.yDelta = verticalPosition + this.getRandInt(10, 750-height);
-        this.xDelta = horizontalPosition + this.getRandInt(10, 1290-width);
+        this.endPoint.setVerticalPosition(verticalPosition + this.getRandInt(10, 750-height));
+        this.endPoint.setHorizontalPosition(horizontalPosition + this.getRandInt(10, 1290-width));
+        System.out.println("Создался прямоугольник");
     }
     @Override
     public void show(Graphics g, int x, int y) {
-        g.drawRect(xDelta, yDelta, width, height);
+        g.setColor(getColor());
+        g.fillRect(endPoint.getHorizontalPosition(), endPoint.getVerticalPosition(), width, height);
     }
 
     @Override
     public void moveTo(int x, int y) {
-        this.xDelta = x + (xDelta - horizontalPosition);
-        this.yDelta = y + (yDelta - verticalPosition);
-        this.horizontalPosition = x;
-        this.verticalPosition = y;
+        this.endPoint.setHorizontalPosition(x + (this.endPoint.getHorizontalPosition() - this.startPoint.getHorizontalPosition()));
+        this.endPoint.setVerticalPosition(y + (this.endPoint.getVerticalPosition() - this.startPoint.getVerticalPosition()));
+        this.startPoint.setHorizontalPosition(x);
+        this.startPoint.setVerticalPosition(y);
     }
 
     public void changeLinearSize(int weightDelta, int heightDelta) {
