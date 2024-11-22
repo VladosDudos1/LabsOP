@@ -3,17 +3,15 @@ import java.util.Map;
 import java.util.Random;
 
 public abstract class Figure {
-    protected Point startPoint;
-    protected Point endPoint;
+    protected Point startPoint = new Point(0, 0);
+    protected Point endPoint = new Point(0, 0);
     protected int[] color = new int[3];
 
-    public abstract void show(Graphics g, int x, int y);
+    public abstract void show(Graphics g);
 
     public abstract void moveTo(int x, int y);
 
-    protected Figure(int horizontalPosition, int verticalPosition) {
-        startPoint = new Point(horizontalPosition, verticalPosition);
-        endPoint = startPoint;
+    protected Figure() {
         color[0] = getRandInt(0, 255);
         color[1] = getRandInt(0, 255);
         color[2] = getRandInt(0, 255);
@@ -25,10 +23,6 @@ public abstract class Figure {
 
     public int getVerticalPosition() {
         return startPoint.getVerticalPosition();
-    }
-
-    public void show(Graphics g) {
-        show(g, 0, 0);
     }
 
     protected int getRandInt(int min, int max) {

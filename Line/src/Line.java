@@ -1,50 +1,52 @@
 import java.awt.*;
-import java.util.Random;
 
 public class Line extends Figure {
     private int length, rotation;
-    protected Line(int horizontalPosition, int verticalPosition) {
-        super(horizontalPosition, verticalPosition);
-        this.length = this.getRandInt(50, 600);
-        this.endPoint.setVerticalPosition(verticalPosition + this.getRandInt(20, 750));
-        this.endPoint.setHorizontalPosition(horizontalPosition + this.getRandInt(10+length/2, 1290-length/2));
-        System.out.println("Создалась линия");
+    private int verticalBarrier = 750;
+    private int horizontalBarrier = 1290;
+    private int maxLength;
+
+    protected Line() {
+        super();
+        maxLength = (int) (Math.pow(Math.sqrt(verticalBarrier) + Math.sqrt(horizontalBarrier), 2));
     }
 
-    public Line(int horizontalPosition, int verticalPosition, int length) {
-        this(horizontalPosition, verticalPosition);
+    public Line(int length, int rotation) {
+        this();
         this.length = length;
-    }
-
-    public Line(int horizontalPosition, int verticalPosition, int length, int rotation) {
-        this(horizontalPosition, verticalPosition, length);
         this.rotation = rotation;
+        this.startPoint.setVerticalPosition(this.getRandInt(20, verticalBarrier - getLength() / 2));
+        this.endPoint.setVerticalPosition((int) (this.startPoint.getVerticalPosition() + (int) (getLength() / 2) * Math.sin(Math.toRadians(getRotation()))));
+        this.startPoint.setHorizontalPosition(this.getRandInt(10, horizontalBarrier - getLength() / 2));
+        this.endPoint.setHorizontalPosition((int) (this.startPoint.getHorizontalPosition() + (int) (getLength() / 2) * Math.cos(Math.toRadians(getRotation()))));
     }
 
     @Override
-    public void show(Graphics g, int x, int y) {
+    public void show(Graphics g) {
         g.setColor(getColor());
-        g.drawLine(this.endPoint.getHorizontalPosition()-length/2, this.endPoint.getVerticalPosition(), this.endPoint.getHorizontalPosition()+length/2, this.endPoint.getVerticalPosition());
+        g.drawLine(this.startPoint.getHorizontalPosition(), this.startPoint.getVerticalPosition(),
+                this.endPoint.getHorizontalPosition(),
+                this.endPoint.getVerticalPosition());
     }
 
     @Override
     public void moveTo(int x, int y) {
-        this.endPoint.setHorizontalPosition(x + (this.endPoint.getHorizontalPosition() - this.startPoint.getHorizontalPosition()));
-        this.endPoint.setVerticalPosition(y + (this.endPoint.getHorizontalPosition() - this.startPoint.getHorizontalPosition()));
-        this.startPoint.setHorizontalPosition(x);
         this.startPoint.setVerticalPosition(y);
+        this.endPoint.setVerticalPosition((int) (this.startPoint.getVerticalPosition() + (int) (getLength() / 2) * Math.sin(Math.toRadians(getRotation()))));
+        this.startPoint.setHorizontalPosition(x);
+        this.endPoint.setHorizontalPosition((int) (this.startPoint.getHorizontalPosition() + (int) (getLength() / 2) * Math.cos(Math.toRadians(getRotation()))));
     }
-
-    public void changeRotation(int angle) {
-        rotation = angle;
-    }
-    public void changeLength(int lengthDelta) {
-        this.length += lengthDelta;
-    }
-    public int getLength(){
+    public int getLength() {
         return length;
     }
-    public int getRotation(){
+
+    public void changeRotation(int rotation) {
+        this.rotation = rotation;
+        this.endPoint.setVerticalPosition((int) (this.startPoint.getVerticalPosition() + (int) (getLength() / 2) * Math.sin(Math.toRadians(getRotation()))));
+        this.endPoint.setHorizontalPosition((int) (this.startPoint.getHorizontalPosition() + (int) (getLength() / 2) * Math.cos(Math.toRadians(getRotation()))));
+    }
+
+    public int getRotation() {
         return rotation;
     }
 }

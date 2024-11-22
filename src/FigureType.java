@@ -4,4 +4,7 @@ public enum FigureType {
     LINE,
     RING,
     ELLIPSE,
+    FOUR_ANGLE,
+    TRAPEZOID,
+    RHOMBUS
 }

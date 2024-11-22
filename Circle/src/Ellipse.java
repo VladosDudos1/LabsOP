@@ -5,23 +5,24 @@ public class Ellipse extends Circle {
     private Orientation orientation;
     private double diff;
 
-    public Ellipse() {
-        this(0, 0);
-    }
-
-    public Ellipse(int x, int y) {
-        super(x, y);
-        this.diff = (double) (getRandInt(80, 160) - 1) /100;
-        this.orientation = Orientation.VERTICAL;
+    public Ellipse(int diff, int radius) {
+        this(radius);
+        this.setRadius(getRandInt(300));
+        this.diff = ((double) diff)/100;
         if (getRandInt(2) % 2 == 0) changeOrientation();
     }
 
-    public void show(Graphics g, int x, int y) {
+    public Ellipse(int radius) {
+        super(radius);
+        this.orientation = Orientation.VERTICAL;
+    }
+
+    public void show(Graphics g) {
         g.setColor(getColor());
         if (orientation == Orientation.HORIZONTAL) {
-            g.drawOval(this.endPoint.getHorizontalPosition(), this.endPoint.getVerticalPosition(), getRadius() * 2, (int) (getRadius() * diff));
+            g.drawOval(this.startPoint.getHorizontalPosition(), this.startPoint.getVerticalPosition(), getRadius() * 2, (int) (getRadius() * diff));
         } else {
-            g.drawOval(this.endPoint.getHorizontalPosition(), this.endPoint.getVerticalPosition(), (int) (getRadius() * diff), getRadius() * 2);
+            g.drawOval(this.startPoint.getHorizontalPosition(), this.startPoint.getVerticalPosition(), (int) (getRadius() * diff), getRadius() * 2);
         }
     }
 
@@ -30,12 +31,5 @@ public class Ellipse extends Circle {
             this.orientation = Orientation.VERTICAL;
         }
         else this.orientation = Orientation.HORIZONTAL;
-    }
-
-    public void moveTo(int x, int y) {
-        this.endPoint.setHorizontalPosition(x + (this.endPoint.getHorizontalPosition() - this.startPoint.getHorizontalPosition()));
-        this.endPoint.setVerticalPosition(y + (this.endPoint.getVerticalPosition() - this.startPoint.getVerticalPosition()));
-        this.startPoint.setHorizontalPosition(x);
-        this.startPoint.setVerticalPosition(y);
     }
 }

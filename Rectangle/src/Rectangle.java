@@ -4,39 +4,31 @@ public class Rectangle extends Figure {
 
     private int width, height;
 
-    public Rectangle(int horizontalPosition, int verticalPosition, int width, int height) {
-        this(horizontalPosition, verticalPosition);
+    public Rectangle(int width, int height) {
+        this();
         this.width = width;
         this.height = height;
+        this.startPoint.setVerticalPosition(this.getRandInt(10, 750-height));
+        this.startPoint.setHorizontalPosition(this.getRandInt(10, 1290-width));
     }
 
-    protected Rectangle(int horizontalPosition, int verticalPosition) {
-        super(horizontalPosition, verticalPosition);
-        this.width = this.getRandInt(20, 500);
-        this.height = this.getRandInt(20, 500);
-        this.endPoint.setVerticalPosition(verticalPosition + this.getRandInt(10, 750-height));
-        this.endPoint.setHorizontalPosition(horizontalPosition + this.getRandInt(10, 1290-width));
-        System.out.println("Создался прямоугольник");
+    protected Rectangle() {
+        super();
     }
     @Override
-    public void show(Graphics g, int x, int y) {
+    public void show(Graphics g) {
         g.setColor(getColor());
-        g.fillRect(endPoint.getHorizontalPosition(), endPoint.getVerticalPosition(), width, height);
+        g.fillRect(startPoint.getHorizontalPosition(), startPoint.getVerticalPosition(), width, height);
     }
 
     @Override
     public void moveTo(int x, int y) {
-        this.endPoint.setHorizontalPosition(x + (this.endPoint.getHorizontalPosition() - this.startPoint.getHorizontalPosition()));
-        this.endPoint.setVerticalPosition(y + (this.endPoint.getVerticalPosition() - this.startPoint.getVerticalPosition()));
         this.startPoint.setHorizontalPosition(x);
         this.startPoint.setVerticalPosition(y);
     }
 
-    public void changeLinearSize(int weightDelta, int heightDelta) {
-        this.width += weightDelta;
-        this.height += heightDelta;
-    }
-    public void changeLinearSize(int sizeDelta, boolean isItHeight){
-        if(isItHeight) this.height += sizeDelta; else this.width += sizeDelta;
+    public void changeLinearSize(int weight, int height) {
+        this.width = weight;
+        this.height = height;
     }
 }
