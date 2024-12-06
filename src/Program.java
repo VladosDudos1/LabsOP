@@ -9,8 +9,8 @@ public class Program {
     private static final int BUTTON_WIDTH = 300;
     private static final int BUTTON_HEIGHT = 50;
     static JFrame frame = new JFrame("4218 Chiypesh Lab");
-    static JButton buttonChooseFigure = new JButton("Создать фигуру");
-    static JButton buttonLine = new JButton("Создать линию");
+    static JButton buttonChooseFigure = ButtonFabric.createButton("Создать фигуру");
+    static JButton buttonLine = ButtonFabric.createButton("Создать линию");
     static JButton buttonRectangle = ButtonFabric.createButton("Создать прямоугольник");
     static JButton buttonCircle = ButtonFabric.createButton("Создать круг");
     static JButton buttonRing = ButtonFabric.createButton("Создать кольцо");
@@ -21,7 +21,6 @@ public class Program {
     static JButton buttonCircleFunc = ButtonFabric.createButton("Изменить круг");
     static JButton buttonRingFunc = ButtonFabric.createButton("Изменить кольцо");
     static JButton buttonEllipseFunc = ButtonFabric.createButton("Изменить эллипс");
-    static JButton buttonPolygonFunc = ButtonFabric.createButton("Изменить четырёхугольник");
     static JButton buttonMove = ButtonFabric.createButton("Переместить фигуру");
     static DrawingPanel drawingPanel = new DrawingPanel();
     static ArrayList<Figure> figures = new ArrayList<>();
@@ -44,7 +43,6 @@ public class Program {
         buttonCircleFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 165, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonRingFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 220, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonEllipseFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 275, BUTTON_WIDTH, BUTTON_HEIGHT);
-//        buttonPolygonFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 330, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonMove.setBounds(frame.getWidth() - BUTTON_WIDTH, 400, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         frame.add(buttonLineFunc);
@@ -52,7 +50,6 @@ public class Program {
         frame.add(buttonCircleFunc);
         frame.add(buttonRingFunc);
         frame.add(buttonEllipseFunc);
-//        frame.add(buttonPolygonFunc);
         frame.add(buttonChooseFigure);
         frame.add(buttonMove);
         frame.setLayout(null);
@@ -140,10 +137,7 @@ public class Program {
             });
             drawingPanel.repaint();
         });
-//        buttonPolygon.addActionListener(al -> {
-//            FourAngle fourAngle = FigureFabric.createFigure(FigureType.FOUR_ANGLE, );
-//            addFigure(fourAngle);
-//        });
+
         buttonMove.addActionListener(al ->{
             var resultMap = FabricDialog.changePointDialog(frame, "Новые координаты");
             figures.getLast().moveTo(resultMap.get("x"), resultMap.get("y"));

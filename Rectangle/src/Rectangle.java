@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Rectangle extends Figure {
+public class Rectangle extends FourAngle {
 
     private int width, height;
 

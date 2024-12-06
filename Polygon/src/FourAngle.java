@@ -10,6 +10,9 @@ public class FourAngle extends Figure {
         this.horizontalPoints = horizontalPoints;
         this.verticalPoints = verticalPoints;
     }
+    protected FourAngle() {
+        super();
+    }
 
     @Override
     public void show(Graphics g) {
