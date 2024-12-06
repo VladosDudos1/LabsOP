@@ -15,11 +15,13 @@ public class Program {
     static JButton buttonCircle = ButtonFabric.createButton("Создать круг");
     static JButton buttonRing = ButtonFabric.createButton("Создать кольцо");
     static JButton buttonEllipse = ButtonFabric.createButton("Создать эллипс");
+    static JButton buttonTrapezoid = ButtonFabric.createButton("Создать трапецию");
     static JButton buttonLineFunc = ButtonFabric.createButton("Изменить линию");
     static JButton buttonRectFunc = ButtonFabric.createButton("Изменить прямоугольник");
     static JButton buttonCircleFunc = ButtonFabric.createButton("Изменить круг");
     static JButton buttonRingFunc = ButtonFabric.createButton("Изменить кольцо");
     static JButton buttonEllipseFunc = ButtonFabric.createButton("Изменить эллипс");
+    static JButton buttonTrapezoidFunc = ButtonFabric.createButton("Изменить трапецию");
     static JButton buttonMove = ButtonFabric.createButton("Переместить фигуру");
     static JButton buttonDelete = ButtonFabric.createButton("Удалить фигуру");
     static DrawingPanel drawingPanel = new DrawingPanel();
@@ -43,8 +45,9 @@ public class Program {
         buttonCircleFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 165, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonRingFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 220, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonEllipseFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 275, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonMove.setBounds(frame.getWidth() - BUTTON_WIDTH, 400, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonDelete.setBounds(frame.getWidth() - BUTTON_WIDTH, 455, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonTrapezoidFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 330, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonMove.setBounds(frame.getWidth() - BUTTON_WIDTH, 500, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonDelete.setBounds(frame.getWidth() - BUTTON_WIDTH, 555, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         frame.add(buttonLineFunc);
         frame.add(buttonRectFunc);
@@ -52,6 +55,7 @@ public class Program {
         frame.add(buttonRingFunc);
         frame.add(buttonEllipseFunc);
         frame.add(buttonChooseFigure);
+        frame.add(buttonTrapezoidFunc);
         frame.add(buttonMove);
         frame.add(buttonDelete);
         frame.setLayout(null);
@@ -125,6 +129,19 @@ public class Program {
                 }
             }
         });
+        buttonTrapezoid.addActionListener(al -> {
+            Trapezoid trapezoid = (Trapezoid) FigureFabric.createFigure(FigureType.TRAPEZOID, null);
+            addFigure(trapezoid);
+        });
+        buttonTrapezoidFunc.addActionListener(al ->{
+            for (Figure figure : figures.reversed()) {
+                if (figure instanceof Trapezoid) {
+                    ((Trapezoid) figure).changeHeight();
+                    drawingPanel.repaint();
+                    return;
+                }
+            }
+        });
         buttonEllipse.addActionListener(al -> {
             var resultMap = FabricDialog.getInfoFromEllipseDialog(frame, "Настройка эллипса");
             Ellipse ellipse = (Ellipse) FigureFabric.createFigure(FigureType.ELLIPSE, resultMap);
@@ -164,7 +181,7 @@ public class Program {
     }
 
     static void setUpDialog(JFrame frame) {
-        dialog = FabricDialog.createListFigureDialog(frame, "Выберите фигуру", Arrays.asList(buttonLine, buttonRectangle, buttonCircle, buttonRing, buttonEllipse));
+        dialog = FabricDialog.createListFigureDialog(frame, "Выберите фигуру", Arrays.asList(buttonLine, buttonRectangle, buttonCircle, buttonRing, buttonEllipse, buttonTrapezoid));
         dialog.setSize(BUTTON_WIDTH + 120, BUTTON_HEIGHT + 100);
     }
 

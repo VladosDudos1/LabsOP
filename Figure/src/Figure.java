@@ -17,11 +17,11 @@ public abstract class Figure {
         color[2] = getRandInt(0, 255);
     }
 
-    protected int getRandInt(int min, int max) {
+    protected static int getRandInt(int min, int max) {
         return new Random().nextInt(max - min + 1) + min;
     }
 
-    protected int getRandInt(int max) {
+    protected static int getRandInt(int max) {
         return new Random().nextInt(max) + 1;
     }
 
