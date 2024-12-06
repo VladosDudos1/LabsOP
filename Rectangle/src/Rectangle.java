@@ -8,8 +8,8 @@ public class Rectangle extends FourAngle {
         this();
         this.width = width;
         this.height = height;
-        this.startPoint.setVerticalPosition(this.getRandInt(10, 750-height));
-        this.startPoint.setHorizontalPosition(this.getRandInt(10, 1290-width));
+        this.startPoint.setVerticalPosition(this.getRandInt(10, 700-height));
+        this.startPoint.setHorizontalPosition(this.getRandInt(10, 1200-width));
     }
 
     protected Rectangle() {
@@ -22,13 +22,18 @@ public class Rectangle extends FourAngle {
     }
 
     @Override
-    public void moveTo(int x, int y) {
-        this.startPoint.setHorizontalPosition(x);
-        this.startPoint.setVerticalPosition(y);
+    public void moveTo() {
+        var maxX = Math.min((1290 - width), startPoint.getHorizontalPosition()+100);
+        var maxY = Math.min((1290 - height), startPoint.getVerticalPosition()+100);
+        this.startPoint.setHorizontalPosition(getRandInt(maxX));
+        this.startPoint.setVerticalPosition(getRandInt(maxY));
     }
 
-    public void changeLinearSize(int weight, int height) {
-        this.width = weight;
-        this.height = height;
+    public void changeLinearSize(int width, int height) {
+        var maxWidth = 1290  - startPoint.getHorizontalPosition();
+        var maxHeight = 750 - startPoint.getVerticalPosition();
+
+        this.width = Math.min(width, maxWidth);
+        this.height = Math.min(height, maxHeight);
     }
 }

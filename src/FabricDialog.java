@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FabricDialog {
     public static JDialog createListFigureDialog(JFrame frame, String title, List<JButton> buttons) {
@@ -11,8 +12,6 @@ public class FabricDialog {
 
         buttons.forEach(dialog::add);
         JButton closeButton = new JButton("Закрыть");
-        closeButton.setBackground(Color.red);
-        closeButton.setForeground(Color.white);
         dialog.add(closeButton);
         closeButton.addActionListener(event -> dialog.dispose());
         return dialog;
@@ -29,11 +28,9 @@ public class FabricDialog {
         JTextField lengthField = new JTextField("1");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
 
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -43,8 +40,8 @@ public class FabricDialog {
             try {
                 int rotation = Integer.parseInt(rotationText);
                 int length = Integer.parseInt(lengthText);
-                if (length > 1400 || length < 1) {
-                    errorLabel.setText("1 <= Длина <= 1400!");
+                if (length > 1250 || length < 1) {
+                    errorLabel.setText("1 <= Длина <= 1250!");
                 } else {
                     result.put("length", length);
                     result.put("rotation", rotation);
@@ -75,11 +72,8 @@ public class FabricDialog {
         JTextField radiusField = new JTextField("21");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
-
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -118,11 +112,9 @@ public class FabricDialog {
         JTextField heightField = new JTextField("1");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
 
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -135,8 +127,8 @@ public class FabricDialog {
                 if (height > 700 || height < 1) {
                     errorLabel.setText("1 <= Высота <= 700!");
                 }
-                else if (width > 1400 || width < 1){
-                    errorLabel.setText("1 <= Ширина <= 1400!");
+                else if (width > 1250 || width < 1){
+                    errorLabel.setText("1 <= Ширина <= 1250!");
                 }else {
                     result.put("height", height);
                     result.put("width", width);
@@ -163,14 +155,12 @@ public class FabricDialog {
         dialog.setLayout(new GridLayout(2, 2, 10, 10));
 
         JLabel diffLabel = new JLabel("    Разница осевой:");
-        JTextField diffField = new JTextField("10");
+        JTextField diffField = new JTextField("50");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
 
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -178,8 +168,8 @@ public class FabricDialog {
             String diffText = diffField.getText();
             try {
                 double diff = Double.parseDouble(diffText);
-                if (diff > 200 || diff <= 1) {
-                    errorLabel.setText("1 < Радиус <= 200!");
+                if (diff > 200 || diff < 50) {
+                    errorLabel.setText("50 <= Коэффицент <= 200!");
                 }
                 else {
                     result.put("diff", (int) diff);
@@ -191,57 +181,6 @@ public class FabricDialog {
         });
         dialog.add(diffLabel);
         dialog.add(diffField);
-        dialog.add(errorLabel);
-        dialog.add(new JLabel());
-        dialog.add(closeButton);
-        dialog.setLocationRelativeTo(frame);
-        dialog.setVisible(true);
-        return result;
-    }
-    public static Map<String, Integer> changePointDialog(JFrame frame, String title) {
-        JDialog dialog = new JDialog(frame, title, true);
-        dialog.setSize(400, 150);
-        dialog.setLayout(new GridLayout(2, 2, 10, 10));
-
-        JLabel xLabel = new JLabel("    Новый x:");
-        JTextField xField = new JTextField("10");
-        JLabel yLabel = new JLabel("    Новый y:");
-        JTextField yField = new JTextField("10");
-
-        JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
-
-        JButton closeButton = new JButton("OK");
-        closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
-
-        Map<String, Integer> result = new HashMap<>();
-
-        closeButton.addActionListener(event -> {
-            String xText = xField.getText();
-            String yText = yField.getText();
-            try {
-                double x = Double.parseDouble(xText);
-                double y = Double.parseDouble(yText);
-                if (x > 1300 || x < 10) {
-                    errorLabel.setText("10 <= x <= 1300!");
-                }
-                else if (y > 700 || y < 10) {
-                    errorLabel.setText("10 <= y <= 1300!");
-                }
-                else {
-                    result.put("x", (int) x);
-                    result.put("y", (int) y);
-                    dialog.dispose();
-                }
-            } catch (NumberFormatException e) {
-                errorLabel.setText("Введите числовые значения для координат!");
-            }
-        });
-        dialog.add(xLabel);
-        dialog.add(xField);
-        dialog.add(yLabel);
-        dialog.add(yField);
         dialog.add(errorLabel);
         dialog.add(new JLabel());
         dialog.add(closeButton);

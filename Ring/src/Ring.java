@@ -2,37 +2,35 @@ import java.awt.*;
 import java.util.Map;
 
 public class Ring extends Circle {
-    private Point additionalStartPoint;
-    private int additionalRadius;
+    private Circle innerCircle;
 
     public Ring(int radius) {
         super(radius);
-        additionalRadius = (int)(radius*0.9);
-        additionalStartPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius()-additionalRadius,
-                this.startPoint.getHorizontalPosition() + this.getRadius()-additionalRadius);
+        innerCircle = new Circle(new Point(this.startPoint.getVerticalPosition() + this.getRadius() - (int)(this.getRadius()*0.9),
+                this.startPoint.getHorizontalPosition() + this.getRadius() - (int)(this.getRadius()*0.9)), (int) (radius * 0.9));
     }
 
     @Override
-    public void moveTo(int x, int y) {
-        super.moveTo(x, y);
-        additionalStartPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius()-additionalRadius,
-                this.startPoint.getHorizontalPosition() + this.getRadius()-additionalRadius);
+    public void moveTo() {
+        super.moveTo();
+        innerCircle.startPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius() - innerCircle.getRadius(),
+                this.startPoint.getHorizontalPosition() + this.getRadius() - innerCircle.getRadius());
     }
 
     @Override
     public void setRadius(int radius) {
         super.setRadius(radius);
-        additionalRadius = (int)(radius*0.9);
-        additionalStartPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius()-additionalRadius,
-                this.startPoint.getHorizontalPosition() + this.getRadius()-additionalRadius);
+        innerCircle.setRadius((int) (radius * 0.9));
+        innerCircle.startPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius() - innerCircle.getRadius(),
+                this.startPoint.getHorizontalPosition() + this.getRadius() - innerCircle.getRadius());
     }
 
     @Override
     public void show(Graphics g) {
         super.show(g);
-        g.drawOval(this.additionalStartPoint.getHorizontalPosition(),
-                this.additionalStartPoint.getVerticalPosition(),
-                (additionalRadius * 2), (additionalRadius * 2));
+        g.drawOval(innerCircle.startPoint.getHorizontalPosition(),
+                innerCircle.startPoint.getVerticalPosition(),
+                (innerCircle.getRadius() * 2), (innerCircle.getRadius() * 2));
 
     }
 }

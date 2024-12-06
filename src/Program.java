@@ -15,13 +15,13 @@ public class Program {
     static JButton buttonCircle = ButtonFabric.createButton("Создать круг");
     static JButton buttonRing = ButtonFabric.createButton("Создать кольцо");
     static JButton buttonEllipse = ButtonFabric.createButton("Создать эллипс");
-    static JButton buttonPolygon = ButtonFabric.createButton("Создать многоугольник");
     static JButton buttonLineFunc = ButtonFabric.createButton("Изменить линию");
     static JButton buttonRectFunc = ButtonFabric.createButton("Изменить прямоугольник");
     static JButton buttonCircleFunc = ButtonFabric.createButton("Изменить круг");
     static JButton buttonRingFunc = ButtonFabric.createButton("Изменить кольцо");
     static JButton buttonEllipseFunc = ButtonFabric.createButton("Изменить эллипс");
     static JButton buttonMove = ButtonFabric.createButton("Переместить фигуру");
+    static JButton buttonDelete = ButtonFabric.createButton("Удалить фигуру");
     static DrawingPanel drawingPanel = new DrawingPanel();
     static ArrayList<Figure> figures = new ArrayList<>();
     static JDialog dialog;
@@ -44,6 +44,7 @@ public class Program {
         buttonRingFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 220, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonEllipseFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 275, BUTTON_WIDTH, BUTTON_HEIGHT);
         buttonMove.setBounds(frame.getWidth() - BUTTON_WIDTH, 400, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonDelete.setBounds(frame.getWidth() - BUTTON_WIDTH, 455, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         frame.add(buttonLineFunc);
         frame.add(buttonRectFunc);
@@ -52,6 +53,7 @@ public class Program {
         frame.add(buttonEllipseFunc);
         frame.add(buttonChooseFigure);
         frame.add(buttonMove);
+        frame.add(buttonDelete);
         frame.setLayout(null);
 
         frame.add(drawingPanel);
@@ -69,17 +71,17 @@ public class Program {
         });
         buttonLine.addActionListener(al -> {
             var resultMap = FabricDialog.getInfoFromLineDialog(frame, "Настройка линии");
-            Line line = (Line)FigureFabric.createFigure(FigureType.LINE, resultMap);
+            Line line = (Line) FigureFabric.createFigure(FigureType.LINE, resultMap);
             addFigure(line);
         });
-        buttonLineFunc.addActionListener(al ->{
-            figures.reversed().forEach(figure -> {
+        buttonLineFunc.addActionListener(al -> {
+            for (Figure figure : figures.reversed()) {
                 if (figure instanceof Line) {
                     ((Line) figure).changeRotation(figure.getRandInt(360));
+                    drawingPanel.repaint();
                     return;
                 }
-            });
-            drawingPanel.repaint();
+            }
         });
         buttonRectangle.addActionListener(al -> {
             var resultMap = FabricDialog.getInfoFromRectangleDialog(frame, "Настройка прямоугольника");
@@ -87,64 +89,67 @@ public class Program {
             addFigure(rectangle);
         });
         buttonRectFunc.addActionListener(al -> {
-            figures.reversed().forEach(figure -> {
-                if (figure instanceof Rectangle) {
-                    ((Rectangle) figure).changeLinearSize(figure.getRandInt(1300), figure.getRandInt(700));
+            for (Figure f : figures.reversed()) {
+                if (f instanceof Rectangle) {
+                    ((Rectangle) f).changeLinearSize(f.getRandInt(1300), f.getRandInt(700));
+                    drawingPanel.repaint();
                     return;
                 }
-            });
-            drawingPanel.repaint();
+            }
         });
         buttonCircle.addActionListener(al -> {
             var resultMap = FabricDialog.getInfoFromCircleDialog(frame, "Настройка круга");
             Circle circle = (Circle) FigureFabric.createFigure(FigureType.CIRCLE, resultMap);
             addFigure(circle);
         });
-        buttonCircleFunc.addActionListener(al ->{
-            figures.reversed().forEach(figure -> {
-                if (figure instanceof Circle && !(figure instanceof Ring)&& !(figure instanceof Ellipse)) {
+        buttonCircleFunc.addActionListener(al -> {
+            for (Figure figure : figures.reversed()) {
+                if (figure instanceof Circle && !(figure instanceof Ring) && !(figure instanceof Ellipse)) {
                     ((Circle) figure).setRadius(figure.getRandInt(360));
+                    drawingPanel.repaint();
                     return;
                 }
-            });
-            drawingPanel.repaint();
+            }
         });
         buttonRing.addActionListener(al -> {
             var resultMap = FabricDialog.getInfoFromCircleDialog(frame, "Настройка кольца");
             Ring ring = (Ring) FigureFabric.createFigure(FigureType.RING, resultMap);
             addFigure(ring);
         });
-        buttonRingFunc.addActionListener(al ->{
-            figures.reversed().forEach(figure -> {
+        buttonRingFunc.addActionListener(al -> {
+            for (Figure figure : figures.reversed()) {
                 if (figure instanceof Ring) {
                     ((Ring) figure).setRadius(figure.getRandInt(360));
+                    drawingPanel.repaint();
                     return;
                 }
-            });
-            drawingPanel.repaint();
+            }
         });
         buttonEllipse.addActionListener(al -> {
             var resultMap = FabricDialog.getInfoFromEllipseDialog(frame, "Настройка эллипса");
             Ellipse ellipse = (Ellipse) FigureFabric.createFigure(FigureType.ELLIPSE, resultMap);
             addFigure(ellipse);
         });
-        buttonEllipseFunc.addActionListener(al ->{
-            figures.reversed().forEach(figure -> {
+        buttonEllipseFunc.addActionListener(al -> {
+            for (Figure figure : figures.reversed()) {
                 if (figure instanceof Ellipse) {
                     ((Ellipse) figure).changeOrientation();
+                    drawingPanel.repaint();
                     return;
                 }
-            });
-            drawingPanel.repaint();
+            }
         });
 
-        buttonMove.addActionListener(al ->{
-            var resultMap = FabricDialog.changePointDialog(frame, "Новые координаты");
-            figures.getLast().moveTo(resultMap.get("x"), resultMap.get("y"));
+        buttonMove.addActionListener(al -> {
+            figures.getLast().moveTo();
             drawingPanel.repaint();
         });
         buttonChooseFigure.addActionListener(al -> {
             dialog.setVisible(true);
+        });
+        buttonDelete.addActionListener(al -> {
+            figures.removeLast();
+            drawingPanel.repaint();
         });
     }
 
@@ -159,9 +164,10 @@ public class Program {
     }
 
     static void setUpDialog(JFrame frame) {
-        dialog = FabricDialog.createListFigureDialog(frame, "Выберите фигуру", Arrays.asList(buttonLine, buttonRectangle, buttonCircle, buttonRing, buttonEllipse, buttonPolygon));
+        dialog = FabricDialog.createListFigureDialog(frame, "Выберите фигуру", Arrays.asList(buttonLine, buttonRectangle, buttonCircle, buttonRing, buttonEllipse));
         dialog.setSize(BUTTON_WIDTH + 120, BUTTON_HEIGHT + 100);
     }
+
     private static void addFigure(Figure figure) {
         figures.add(figure);
         drawingPanel.repaint();
