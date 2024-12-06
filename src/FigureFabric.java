@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
@@ -11,7 +12,8 @@ public class FigureFabric {
                 case RING -> createRing(map.get("radius"));
                 case ELLIPSE -> createEllipse(map.get("diff"));
                 case RECTANGLE -> createRectangle(map.get("width"), map.get("height"));
-//            case FOUR_ANGLE -> new FourAngle(map.get("horizontalPoints"), map.get("verticalPoints"));
+                case TRAPEZOID -> null;
+                case RHOMBUS -> null;
                 default -> null;
             };
         }
@@ -40,7 +42,14 @@ public class FigureFabric {
         System.out.println("Создался эллипс");
         return new Ellipse(diff, new Random().nextInt(1, 301));
     }
-    private static FourAngle createPolygon(int[] horizontalPoints, int[] verticalPoints){
+    private static FourAngle createPolygon(Map<String, Integer> listPoints){
+        ArrayList<Integer> horizontalPoints = new ArrayList<>();
+        ArrayList<Integer> verticalPoints = new ArrayList<>();
+        System.out.print(listPoints);
+        for (int i = 1; i <= 4; i++){
+            horizontalPoints.add(listPoints.get("x"+i));
+            verticalPoints.add(listPoints.get("y"+i));
+        }
         System.out.println("Создался четырёхугольник");
         return new FourAngle(horizontalPoints, verticalPoints);
     }

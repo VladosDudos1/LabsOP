@@ -13,8 +13,8 @@ public class Ring extends Circle {
     }
 
     @Override
-    public void moveTo(int x, int y) {
-        super.moveTo(x, y);
+    public void moveTo() {
+        super.moveTo();
         additionalStartPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius()-additionalRadius,
                 this.startPoint.getHorizontalPosition() + this.getRadius()-additionalRadius);
     }

@@ -9,20 +9,12 @@ public abstract class Figure {
 
     public abstract void show(Graphics g);
 
-    public abstract void moveTo(int x, int y);
+    public abstract void moveTo();
 
     protected Figure() {
         color[0] = getRandInt(0, 255);
         color[1] = getRandInt(0, 255);
         color[2] = getRandInt(0, 255);
-    }
-
-    public int getHorizontalPosition() {
-        return startPoint.getHorizontalPosition();
-    }
-
-    public int getVerticalPosition() {
-        return startPoint.getVerticalPosition();
     }
 
     protected int getRandInt(int min, int max) {

@@ -22,9 +22,29 @@ public class Rectangle extends Figure {
     }
 
     @Override
-    public void moveTo(int x, int y) {
-        this.startPoint.setHorizontalPosition(x);
-        this.startPoint.setVerticalPosition(y);
+    public void moveTo() {
+        int minBarrierX;
+        int minBarrierY;
+        int maxBarrierX;
+        int maxBarrierY;
+        if (this.startPoint.getHorizontalPosition() >= 50){
+            minBarrierX = this.startPoint.getHorizontalPosition()-50;
+        }
+        else minBarrierX = 1;
+        if (this.startPoint.getHorizontalPosition() <= 1250){
+            maxBarrierX = this.startPoint.getHorizontalPosition()+50;
+        }
+        else maxBarrierX = 1700;
+        if (this.startPoint.getVerticalPosition() >= 50){
+            minBarrierY = this.startPoint.getVerticalPosition()-50;
+        }
+        else minBarrierY = 1;
+        if (this.startPoint.getVerticalPosition() <= 750){
+            maxBarrierY = this.startPoint.getVerticalPosition()+50;
+        }
+        else maxBarrierY = 800;
+        this.startPoint.setHorizontalPosition(getRandInt(minBarrierX, maxBarrierX));
+        this.startPoint.setVerticalPosition(getRandInt(minBarrierY, maxBarrierY));
     }
 
     public void changeLinearSize(int weight, int height) {

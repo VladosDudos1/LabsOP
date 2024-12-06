@@ -7,7 +7,7 @@ public class Ellipse extends Circle {
 
     public Ellipse(int diff, int radius) {
         this(radius);
-        this.setRadius(getRandInt(300));
+        this.setRadius(getRandInt(250));
         this.diff = ((double) diff)/100;
         if (getRandInt(2) % 2 == 0) changeOrientation();
     }
@@ -20,9 +20,9 @@ public class Ellipse extends Circle {
     public void show(Graphics g) {
         g.setColor(getColor());
         if (orientation == Orientation.HORIZONTAL) {
-            g.drawOval(this.startPoint.getHorizontalPosition(), this.startPoint.getVerticalPosition(), getRadius() * 2, (int) (getRadius() * diff));
+            g.drawOval(this.startPoint.getHorizontalPosition()-(getRadius()/2), this.startPoint.getVerticalPosition()-(getRadius()/2), getRadius() * 2, (int) (getRadius() * diff));
         } else {
-            g.drawOval(this.startPoint.getHorizontalPosition(), this.startPoint.getVerticalPosition(), (int) (getRadius() * diff), getRadius() * 2);
+            g.drawOval(this.startPoint.getHorizontalPosition() - (getRadius()/2), this.startPoint.getVerticalPosition() - (getRadius()/2), (int) (getRadius() * diff), getRadius() * 2);
         }
     }
 

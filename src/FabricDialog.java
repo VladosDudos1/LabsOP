@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FabricDialog {
     public static JDialog createListFigureDialog(JFrame frame, String title, List<JButton> buttons) {
@@ -11,8 +12,6 @@ public class FabricDialog {
 
         buttons.forEach(dialog::add);
         JButton closeButton = new JButton("Закрыть");
-        closeButton.setBackground(Color.red);
-        closeButton.setForeground(Color.white);
         dialog.add(closeButton);
         closeButton.addActionListener(event -> dialog.dispose());
         return dialog;
@@ -29,11 +28,9 @@ public class FabricDialog {
         JTextField lengthField = new JTextField("1");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
 
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -75,11 +72,8 @@ public class FabricDialog {
         JTextField radiusField = new JTextField("21");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
-
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -118,11 +112,9 @@ public class FabricDialog {
         JTextField heightField = new JTextField("1");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
 
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -166,11 +158,9 @@ public class FabricDialog {
         JTextField diffField = new JTextField("10");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
 
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -209,11 +199,9 @@ public class FabricDialog {
         JTextField yField = new JTextField("10");
 
         JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
 
         JButton closeButton = new JButton("OK");
         closeButton.setBackground(new Color(50, 168, 80));
-        closeButton.setForeground(Color.white);
 
         Map<String, Integer> result = new HashMap<>();
 
@@ -249,4 +237,73 @@ public class FabricDialog {
         dialog.setVisible(true);
         return result;
     }
+
+//    public static Map<String, Integer> getInfoPolygonDialog(JFrame frame, String title) {
+//        JDialog dialog = new JDialog(frame, title, true);
+//        dialog.setSize(1100, 120);
+//        dialog.setLayout(new GridLayout(2, 2, 10, 10));
+//
+//        JLabel xLabel = new JLabel("  Введите все координаты x через пробел:");
+//        JTextField xField = new JTextField("");
+//        JLabel yLabel = new JLabel("  Введите все координаты y через пробел:");
+//        JTextField yField = new JTextField("");
+//
+//        JLabel errorLabel = new JLabel();
+//        errorLabel.setForeground(Color.RED);
+//
+//        JButton closeButton = new JButton("OK");
+//        closeButton.setBackground(new Color(50, 168, 80));
+//
+//        Map<String, Integer> result = new HashMap<>();
+//
+//        closeButton.addActionListener(event -> {
+//            String xText = xField.getText();
+//            String yText = yField.getText();
+//            List<String> listX = Arrays.stream(xText.split(" ")).toList();
+//            List<String> listY = Arrays.stream(yText.split(" ")).toList();
+//            try {
+//                if (checkCoordinatesList(listX, listY)){
+//                    for (int i = 1; i <= listX.size(); i++){
+//                        result.put("x" + (i), Integer.parseInt(listX.get(i-1)));
+//                    }
+//                    for (int i = 1; i <= listY.size(); i++){
+//                        result.put("y" + (i), Integer.parseInt(listY.get(i-1)));
+//                    }
+//                    dialog.dispose();
+//                }
+//                else {
+//                   errorLabel.setText("Некорректный ввод");
+//                }
+//            } catch (NumberFormatException e) {
+//                errorLabel.setText("Введите числовые значения для координат!");
+//            }
+//        });
+//        dialog.add(xLabel);
+//        dialog.add(xField);
+//        dialog.add(yLabel);
+//        dialog.add(yField);
+//        dialog.add(errorLabel);
+//        dialog.add(new JLabel());
+//        dialog.add(closeButton);
+//        dialog.setLocationRelativeTo(frame);
+//        dialog.setVisible(true);
+//        return result;
+//    }
+
+//    private static boolean checkCoordinatesList(List<String> listX, List<String> listY){
+//        if (listX.size() != 4 || listY.size() !=4) {return false;}
+//        for (String x : listX){
+//            int coord = Integer.parseInt(x);
+//            if (coord < 0 || coord > 1700){
+//                return false;
+//            }
+//        }
+//        for (String y : listY){
+//            int coord = Integer.parseInt(y);
+//            if (coord < 0 || coord > 800){
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 }

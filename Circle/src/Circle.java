@@ -22,9 +22,31 @@ public class Circle extends Figure {
     }
 
     @Override
-    public void moveTo(int x, int y) {
-        this.startPoint.setHorizontalPosition(x);
-        this.startPoint.setVerticalPosition(y);
+    public void moveTo() {
+        int minBarrierX;
+        int minBarrierY;
+        int maxBarrierX;
+        int maxBarrierY;
+        if (this.startPoint.getHorizontalPosition() > 50){
+            minBarrierX = this.startPoint.getHorizontalPosition()-50;
+        }
+        else minBarrierX = 1;
+        if (this.startPoint.getHorizontalPosition() < 1200-(getRadius()*2)){
+            maxBarrierX = this.startPoint.getHorizontalPosition()+50;
+        }
+        else maxBarrierX = 1200-(getRadius()*2);
+        if (this.startPoint.getVerticalPosition() > 50){
+            minBarrierY = this.startPoint.getVerticalPosition()-50;
+        }
+        else minBarrierY = 1;
+        if (this.startPoint.getVerticalPosition() < 700-(getRadius()*2)){
+            maxBarrierY = this.startPoint.getVerticalPosition()+50;
+        }
+        else maxBarrierY = 700-(getRadius()*2);
+        this.startPoint.setHorizontalPosition(getRandInt(minBarrierX, maxBarrierX));
+        System.out.println(maxBarrierY);
+        this.startPoint.setVerticalPosition(getRandInt(minBarrierY, maxBarrierY));
+        System.out.println(startPoint.getVerticalPosition());
     }
 
     public void setRadius(int radius) {
