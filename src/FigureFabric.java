@@ -13,7 +13,7 @@ public class FigureFabric {
                 case ELLIPSE -> createEllipse(map.get("diff"));
                 case RECTANGLE -> createRectangle(map.get("width"), map.get("height"));
                 case TRAPEZOID -> createTrapezoid();
-                case RHOMBUS -> null;
+                case RHOMBUS -> createRhombus();
                 default -> null;
             };
         }
@@ -46,5 +46,9 @@ public class FigureFabric {
     private static Trapezoid createTrapezoid(){
         System.out.println("Создана трапеция");
         return new Trapezoid();
+    }
+    private static Rhombus createRhombus(){
+        System.out.println("Создан ромб");
+        return new Rhombus();
     }
 }
