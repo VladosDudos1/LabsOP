@@ -19,9 +19,9 @@ public class Ellipse extends Circle {
     public void show(Graphics g) {
         g.setColor(getColor());
         if (orientation == Orientation.HORIZONTAL) {
-            g.drawOval(this.startPoint.getHorizontalPosition()-(getRadius()/2), this.startPoint.getVerticalPosition()-(getRadius()/2), getRadius() * 2, (int) (getRadius() * diff));
+            g.drawOval(this.startPoint.getHorizontalPosition()-(getRadius()/2), this.startPoint.getVerticalPosition()-(int)(getRadius()/1.5), getRadius() * 2, (int) (getRadius() * diff));
         } else {
-            g.drawOval(this.startPoint.getHorizontalPosition() - (getRadius()/2), this.startPoint.getVerticalPosition() - (getRadius()/2), (int) (getRadius() * diff), getRadius() * 2);
+            g.drawOval(this.startPoint.getHorizontalPosition() - (getRadius()/2), this.startPoint.getVerticalPosition() - (int)(getRadius()/1.5), (int) (getRadius() * diff), getRadius() * 2);
         }
     }
 
@@ -31,8 +31,8 @@ public class Ellipse extends Circle {
         var newY = getRandInt(startPoint.getVerticalPosition()-100, startPoint.getVerticalPosition()+100);
         if (newX <= 100) newX = 100;
         if (newY <= 100) newY = 100;
-        if (newX > 1200-this.getRadius()*1.2) newX = 1200-this.getRadius();
-        if (newY > 600-this.getRadius()*1.2) newY = 600-this.getRadius();
+        if (newX > 1100-this.getRadius()*1.2) newX = 1100-this.getRadius();
+        if (newY > 550-this.getRadius()*1.2) newY = 550-this.getRadius();
         this.startPoint.setHorizontalPosition(newX);
         this.startPoint.setVerticalPosition(newY);
     }

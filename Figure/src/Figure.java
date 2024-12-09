@@ -4,12 +4,13 @@ import java.util.Random;
 
 public abstract class Figure {
     protected Point startPoint = new Point(0, 0);
-    protected Point endPoint = new Point(0, 0);
     protected int[] color = new int[3];
 
     public abstract void show(Graphics g);
 
-    public abstract void moveTo();
+    public void moveTo(){
+
+    }
 
     protected Figure() {
         color[0] = getRandInt(0, 255);

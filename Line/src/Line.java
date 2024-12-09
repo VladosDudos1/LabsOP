@@ -1,10 +1,10 @@
 import java.awt.*;
-import java.awt.Point;
 
 public class Line extends Figure {
     private int length, rotation;
     private int verticalBarrier = 750;
     private int horizontalBarrier = 1290;
+    private Point endPoint = new Point(0, 0);
 
     protected Line() {
         super();
