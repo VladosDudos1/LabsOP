@@ -9,7 +9,9 @@ public abstract class Figure {
 
     public abstract void show(Graphics g);
 
-    public abstract void moveTo();
+    public void moveTo(){
+
+    }
 
     protected Figure() {
         color[0] = getRandInt(0, 255);
