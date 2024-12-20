@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.Map;
 import java.util.Random;
 
 public abstract class Figure {
@@ -8,8 +7,15 @@ public abstract class Figure {
 
     public abstract void show(Graphics g);
 
-    public void moveTo(){
+    public void moveTo() {
+        int dx = getRandInt(-100, 100);
+        int dy = getRandInt(-100, 100);
 
+        while (!canMove(dx, dy)){
+            dx = getRandInt(-100, 100);
+            dy = getRandInt(-100, 100);
+        }
+        additionalMoveSetup(dx, dy);
     }
 
     protected Figure() {
@@ -33,4 +39,6 @@ public abstract class Figure {
     protected Color getColor(){
         return new Color(color[0], color[1], color[2], 172);
     }
+    protected abstract boolean canMove(int dx, int dy);
+    protected abstract void additionalMoveSetup(int dx, int dy);
 }

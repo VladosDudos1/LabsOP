@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Trapezoid extends FourAngle {
     private int[] arrX = {0, 0, 0, 0};
@@ -45,31 +43,6 @@ public class Trapezoid extends FourAngle {
         this.arrY[3] = this.arrY[2];
     }
 
-    public void moveTo() {
-        int dx = getRandInt(-100, 100);
-        int dy = getRandInt(-100, 100);
-
-        while (!canMove(dx, dy)) {
-            dx = getRandInt(-100, 100);
-            dy = getRandInt(-100, 100);
-        }
-        for (int i = 0; i < 4; i++) {
-            arrX[i] += dx;
-            arrY[i] += dy;
-        }
-    }
-    private boolean canMove(int dx, int dy) {
-        for (int i = 0; i < 4; i++) {
-            int newX = arrX[i] + dx;
-            int newY = arrY[i] + dy;
-
-            if (newX < 0 || newX > 1250 || newY < 0 || newY > 700) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void changeHeight() {
         int currentHeightDifference = Math.abs(arrY[2] - arrY[0]);
         int heightChange = getRandInt(-150, 150);
@@ -105,5 +78,25 @@ public class Trapezoid extends FourAngle {
 
     public int[] getArrY() {
         return arrY;
+    }
+    @Override
+    protected boolean canMove(int dx, int dy) {
+        for (int i = 0; i < 4; i++) {
+            int newX = arrX[i] + dx;
+            int newY = arrY[i] + dy;
+
+            if (newX < 0 || newX > 1250 || newY < 0 || newY > 700) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    protected void additionalMoveSetup(int dx, int dy) {
+        for (int i = 0; i < 4; i++) {
+            arrX[i] += dx;
+            arrY[i] += dy;
+        }
     }
 }

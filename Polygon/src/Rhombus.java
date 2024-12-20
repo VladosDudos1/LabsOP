@@ -29,26 +29,6 @@ public class Rhombus extends FourAngle {
         g.fillPolygon(arrX, arrY, 4);
     }
 
-    @Override
-    public void moveTo() {
-        int dx = getRandInt(-100, 100);
-        int dy = getRandInt(-100, 100);
-
-        for (Point vertex : vertices) {
-            int newX = vertex.getHorizontalPosition() + dx;
-            int newY = vertex.getVerticalPosition() + dy;
-
-            if (newX < 0) dx = Math.max(dx, -vertex.getHorizontalPosition());
-            if (newX > 1250) dx = Math.min(dx, 1250 - vertex.getHorizontalPosition());
-            if (newY < 0) dy = Math.max(dy, -vertex.getVerticalPosition());
-            if (newY > 650) dy = Math.min(dy, 650 - vertex.getVerticalPosition());
-        }
-        for (Point vertex : vertices) {
-            vertex.setHorizontalPosition(vertex.getHorizontalPosition() + dx);
-            vertex.setVerticalPosition(vertex.getVerticalPosition() + dy);
-        }
-    }
-
     public void changeDiagonals() {
         int d1Change = getRandInt(-100, 100);
         int d2Change = getRandInt(-100, 100);
@@ -70,5 +50,24 @@ public class Rhombus extends FourAngle {
 
         vertices[3].setVerticalPosition(centerY);
         vertices[3].setHorizontalPosition(centerX - newHalfDiagonal2);
+    }
+
+    @Override
+    protected boolean canMove(int dx, int dy) {
+        for (Point vertex : vertices) {
+            int newX = vertex.getHorizontalPosition() + dx;
+            int newY = vertex.getVerticalPosition() + dy;
+
+            if (newX < 0 || newX > 1250 || newY < 0 || newY > 650) return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void additionalMoveSetup(int dx, int dy) {
+        for (Point vertex : vertices) {
+            vertex.setHorizontalPosition(vertex.getHorizontalPosition() + dx);
+            vertex.setVerticalPosition(vertex.getVerticalPosition() + dy);
+        }
     }
 }

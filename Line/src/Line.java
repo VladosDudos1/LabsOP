@@ -4,6 +4,8 @@ public class Line extends Figure {
     private int length, rotation;
     private int verticalBarrier = 750;
     private int horizontalBarrier = 1290;
+    int deltaX;
+    int deltaY;
     private Point endPoint = new Point(0, 0);
 
     protected Line() {
@@ -14,9 +16,9 @@ public class Line extends Figure {
         this();
         this.length = length;
         this.rotation = rotation;
-        this.startPoint.setVerticalPosition(this.getRandInt(20, verticalBarrier - getLength() / 2));
+        this.startPoint.setVerticalPosition(getRandInt(20, verticalBarrier - getLength() / 2));
         this.endPoint.setVerticalPosition((int) (this.startPoint.getVerticalPosition() + (int) (getLength() / 2) * Math.sin(Math.toRadians(getRotation()))));
-        this.startPoint.setHorizontalPosition(this.getRandInt(10, horizontalBarrier - getLength() / 2));
+        this.startPoint.setHorizontalPosition(getRandInt(10, horizontalBarrier - getLength() / 2));
         this.endPoint.setHorizontalPosition((int) (this.startPoint.getHorizontalPosition() + (int) (getLength() / 2) * Math.cos(Math.toRadians(getRotation()))));
     }
 
@@ -26,21 +28,6 @@ public class Line extends Figure {
         g.drawLine(this.startPoint.getHorizontalPosition(), this.startPoint.getVerticalPosition(),
                 this.endPoint.getHorizontalPosition(),
                 this.endPoint.getVerticalPosition());
-    }
-
-    @Override
-    public void moveTo() {
-        var deltaX = endPoint.getHorizontalPosition() - startPoint.getHorizontalPosition();
-        var deltaY = endPoint.getVerticalPosition() - startPoint.getVerticalPosition();
-        var newX = getRandInt(Math.max(50, startPoint.getHorizontalPosition()-100), Math.min(1250, startPoint.getHorizontalPosition()+100));
-        if (1250 - (newX+deltaX) <= 0) newX = Math.abs(1250 - (newX+deltaX));
-        var newY = getRandInt(Math.max(50, startPoint.getVerticalPosition()-100), Math.min(650, startPoint.getVerticalPosition()+100));
-        if (650 - (newY+deltaY) <= 0) newY = Math.abs(650 - (newY+deltaY));
-
-        startPoint.setHorizontalPosition(newX);
-        startPoint.setVerticalPosition(newY);
-        endPoint.setHorizontalPosition(newX+deltaX);
-        endPoint.setVerticalPosition(newY+deltaY);
     }
 
     public int getLength() {
@@ -77,5 +64,24 @@ public class Line extends Figure {
 
     public int getRotation() {
         return rotation;
+    }
+
+    @Override
+    protected boolean canMove(int dx, int dy) {
+        deltaX = endPoint.getHorizontalPosition() - startPoint.getHorizontalPosition();
+        deltaY = endPoint.getVerticalPosition() - startPoint.getVerticalPosition();
+        var newX = dx + startPoint.getHorizontalPosition();
+        var newY = dy + startPoint.getVerticalPosition();
+        return 1250 - (newX + deltaX) > 0 && 650 - (newY + deltaY) > 0 && newX > 0 && newY > 0;
+    }
+
+    @Override
+    protected void additionalMoveSetup(int dx, int dy) {
+        var newX = dx + startPoint.getHorizontalPosition();
+        var newY = dy + startPoint.getVerticalPosition();
+        startPoint.setHorizontalPosition(newX);
+        startPoint.setVerticalPosition(newY);
+        endPoint.setHorizontalPosition(newX+deltaX);
+        endPoint.setVerticalPosition(newY+deltaY);
     }
 }

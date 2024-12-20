@@ -15,7 +15,7 @@ public class Circle extends Figure {
         this();
         this.radius = radius;
         this.startPoint.setHorizontalPosition(getRandInt(160, 1200 - (radius * 2) - 5));
-        this.startPoint.setVerticalPosition(getRandInt(80, 650-radius*2));
+        this.startPoint.setVerticalPosition(getRandInt(100, 681-radius*2));
     }
 
     protected Circle() {
@@ -26,18 +26,6 @@ public class Circle extends Figure {
     public void show(Graphics g) {
         g.setColor(getColor());
         g.drawOval(this.startPoint.getHorizontalPosition(), this.startPoint.getVerticalPosition(), getRadius()*2, getRadius()*2);
-    }
-
-    @Override
-    public void moveTo() {
-        var newX = getRandInt(startPoint.getHorizontalPosition()-100, startPoint.getHorizontalPosition()+100);
-        var newY = getRandInt(startPoint.getVerticalPosition()-100, startPoint.getVerticalPosition()+100);
-        if (newX <= 100) newX = 100;
-        if (newY <= 100) newY = 100;
-        if (newX > 1100-this.getRadius()*1.5) newX = 1100-(this.getRadius()*2);
-        if (newY > 550-this.getRadius()*1.5) newY = 550-(this.getRadius()*2);
-        this.startPoint.setHorizontalPosition(newX);
-        this.startPoint.setVerticalPosition(newY);
     }
 
     public void setRadius(int radius) {
@@ -56,5 +44,21 @@ public class Circle extends Figure {
     }
     public int getRadius() {
         return radius;
+    }
+
+
+    @Override
+    protected boolean canMove(int dx, int dy) {
+        int newX = startPoint.getHorizontalPosition() + dx;
+        int newY = startPoint.getVerticalPosition() + dy;
+        return newX > 50 && newY > 50 && !(newX > 1100 - this.getRadius() * 1.5) && !(newY > 600 - this.getRadius() * 1.5);
+    }
+
+    @Override
+    protected void additionalMoveSetup(int dx, int dy) {
+        int newX = startPoint.getHorizontalPosition() + dx;
+        int newY = startPoint.getVerticalPosition() + dy;
+        this.startPoint.setHorizontalPosition(newX);
+        this.startPoint.setVerticalPosition(newY);
     }
 }

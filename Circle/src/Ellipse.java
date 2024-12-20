@@ -7,7 +7,7 @@ public class Ellipse extends Circle {
 
     public Ellipse(int diff, int radius) {
         this(radius);
-        this.setRadius(getRandInt(50, 250));
+        this.setRadius(getRandInt(80, 250));
         this.diff = ((double) diff)/100;
     }
 
@@ -25,22 +25,17 @@ public class Ellipse extends Circle {
         }
     }
 
-    @Override
-    public void moveTo() {
-        var newX = getRandInt(startPoint.getHorizontalPosition()-100, startPoint.getHorizontalPosition()+100);
-        var newY = getRandInt(startPoint.getVerticalPosition()-100, startPoint.getVerticalPosition()+100);
-        if (newX <= 100) newX = 100;
-        if (newY <= 100) newY = 100;
-        if (newX > 1100-this.getRadius()*1.2) newX = 1100-this.getRadius();
-        if (newY > 550-this.getRadius()*1.2) newY = 550-this.getRadius();
-        this.startPoint.setHorizontalPosition(newX);
-        this.startPoint.setVerticalPosition(newY);
-    }
-
     protected void changeOrientation() {
         if (this.orientation == Orientation.HORIZONTAL) {
             this.orientation = Orientation.VERTICAL;
         }
         else this.orientation = Orientation.HORIZONTAL;
+    }
+
+    @Override
+    protected boolean canMove(int dx, int dy) {
+        int newX = startPoint.getHorizontalPosition() + dx;
+        int newY = startPoint.getVerticalPosition() + dy;
+        return newX > 100 && newY > 100 && !(newX > 1100 - this.getRadius() * 1.2) && !(newY > 550 - this.getRadius() * 1.2);
     }
 }

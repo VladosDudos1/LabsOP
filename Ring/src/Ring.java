@@ -11,13 +11,6 @@ public class Ring extends Circle {
     }
 
     @Override
-    public void moveTo() {
-        super.moveTo();
-        innerCircle.startPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius() - innerCircle.getRadius(),
-                this.startPoint.getHorizontalPosition() + this.getRadius() - innerCircle.getRadius());
-    }
-
-    @Override
     public void setRadius(int radius) {
         super.setRadius(radius);
         innerCircle.setHardRadius(this.getRadius()*0.9);
@@ -32,5 +25,12 @@ public class Ring extends Circle {
                 innerCircle.startPoint.getVerticalPosition(),
                 (innerCircle.getRadius() * 2), (innerCircle.getRadius() * 2));
 
+    }
+
+    @Override
+    protected void additionalMoveSetup(int dx, int dy) {
+        super.additionalMoveSetup(dx, dy);
+        innerCircle.startPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius() - innerCircle.getRadius(),
+                this.startPoint.getHorizontalPosition() + this.getRadius() - innerCircle.getRadius());
     }
 }
