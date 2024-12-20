@@ -14,8 +14,8 @@ public class Circle extends Figure {
     public Circle(int radius) {
         this();
         this.radius = radius;
-        this.startPoint.setHorizontalPosition(this.getRandInt(0, 1300 - (radius * 2) - 5));
-        this.startPoint.setVerticalPosition(this.getRandInt(0, 750-radius*2));
+        this.startPoint.setHorizontalPosition(getRandInt(160, 1200 - (radius * 2) - 5));
+        this.startPoint.setVerticalPosition(getRandInt(80, 650-radius*2));
     }
 
     protected Circle() {
@@ -30,40 +30,30 @@ public class Circle extends Figure {
 
     @Override
     public void moveTo() {
-        int minBarrierX;
-        int minBarrierY;
-        int maxBarrierX;
-        int maxBarrierY;
-        if (this.startPoint.getHorizontalPosition() > 100){
-            minBarrierX = this.startPoint.getHorizontalPosition()-100;
-        }
-        else minBarrierX = 1;
-        if (this.startPoint.getHorizontalPosition() < 1200-(getRadius()*2)){
-            maxBarrierX = this.startPoint.getHorizontalPosition()+100;
-        }
-        else maxBarrierX = 1200-(getRadius()*2);
-        if (this.startPoint.getVerticalPosition() > 100){
-            minBarrierY = this.startPoint.getVerticalPosition()-100;
-        }
-        else minBarrierY = 1;
-        if (this.startPoint.getVerticalPosition() < 650-(getRadius()*2)){
-            maxBarrierY = this.startPoint.getVerticalPosition()+100;
-        }
-        else maxBarrierY = 700-(getRadius()*2);
-        this.startPoint.setHorizontalPosition(getRandInt(minBarrierX, maxBarrierX));
-        this.startPoint.setVerticalPosition(getRandInt(minBarrierY, maxBarrierY));
+        var newX = getRandInt(startPoint.getHorizontalPosition()-100, startPoint.getHorizontalPosition()+100);
+        var newY = getRandInt(startPoint.getVerticalPosition()-100, startPoint.getVerticalPosition()+100);
+        if (newX <= 100) newX = 100;
+        if (newY <= 100) newY = 100;
+        if (newX > 1100-this.getRadius()*1.5) newX = 1100-(this.getRadius()*2);
+        if (newY > 550-this.getRadius()*1.5) newY = 550-(this.getRadius()*2);
+        this.startPoint.setHorizontalPosition(newX);
+        this.startPoint.setVerticalPosition(newY);
     }
 
     public void setRadius(int radius) {
+        int maxRadius = Math.min((int)((1000- startPoint.getHorizontalPosition())/2), (int)((600 - startPoint.getVerticalPosition())/2));
+        maxRadius = Math.min(300, maxRadius);
         if (radius < 1) {
             this.radius = 1;
         }
-        else if (radius > 300) {
-            this.radius = 300;
+        else if (radius > maxRadius) {
+            this.radius = maxRadius-10;
         }
         else this.radius = radius;
     }
-
+    protected void setHardRadius(double radius){
+        this.radius = (int)radius;
+    }
     public int getRadius() {
         return radius;
     }

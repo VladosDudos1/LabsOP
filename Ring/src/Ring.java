@@ -20,7 +20,7 @@ public class Ring extends Circle {
     @Override
     public void setRadius(int radius) {
         super.setRadius(radius);
-        innerCircle.setRadius((int) (radius * 0.9));
+        innerCircle.setHardRadius(this.getRadius()*0.9);
         innerCircle.startPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius() - innerCircle.getRadius(),
                 this.startPoint.getHorizontalPosition() + this.getRadius() - innerCircle.getRadius());
     }

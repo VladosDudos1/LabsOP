@@ -6,8 +6,8 @@ public class Rhombus extends FourAngle {
 
     public Rhombus() {
         super();
-        int centerX = getRandInt(100, 1150);
-        int centerY = getRandInt(100, 550);
+        int centerX = getRandInt(120, 1150);
+        int centerY = getRandInt(120, 550);
         int halfDiagonal1 = getRandInt(50, 150);
         int halfDiagonal2 = getRandInt(50, 150);
 

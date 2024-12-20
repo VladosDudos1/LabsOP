@@ -113,7 +113,7 @@ public class Program {
         buttonCircleFunc.addActionListener(al -> {
             for (Figure figure : figures.reversed()) {
                 if (figure instanceof Circle && !(figure instanceof Ring) && !(figure instanceof Ellipse)) {
-                    ((Circle) figure).setRadius(figure.getRandInt(360));
+                    ((Circle) figure).setRadius(Figure.getRandInt(300));
                     drawingPanel.repaint();
                     return;
                 }
@@ -127,7 +127,7 @@ public class Program {
         buttonRingFunc.addActionListener(al -> {
             for (Figure figure : figures.reversed()) {
                 if (figure instanceof Ring) {
-                    ((Ring) figure).setRadius(figure.getRandInt(360));
+                    ((Ring) figure).setRadius(Figure.getRandInt(300));
                     drawingPanel.repaint();
                     return;
                 }
@@ -199,7 +199,7 @@ public class Program {
 
     static void setUpDialog(JFrame frame) {
         dialog = FabricDialog.createListFigureDialog(frame, "Выберите фигуру", Arrays.asList(buttonLine, buttonRectangle, buttonCircle, buttonRing, buttonEllipse, buttonTrapezoid, buttonRhombus));
-        dialog.setSize(BUTTON_WIDTH + 120, BUTTON_HEIGHT + 100);
+        dialog.setSize(BUTTON_WIDTH + 120, BUTTON_HEIGHT + 120);
     }
 
     private static void addFigure(Figure figure) {

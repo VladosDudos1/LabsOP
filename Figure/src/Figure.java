@@ -4,7 +4,6 @@ import java.util.Random;
 
 public abstract class Figure {
     protected Point startPoint = new Point(0, 0);
-    protected Point endPoint = new Point(0, 0);
     protected int[] color = new int[3];
 
     public abstract void show(Graphics g);
