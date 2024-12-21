@@ -99,4 +99,25 @@ public class Trapezoid extends FourAngle {
             arrY[i] += dy;
         }
     }
+
+    @Override
+    public void moveToBasePos() {
+        int dx = arrX[0];
+        int dy = arrY[0];
+        for (Integer coordinate : arrX) {
+            if (coordinate < dx){
+                dx = coordinate;
+            }
+        }
+        for (Integer coordinate : arrY) {
+            if (coordinate < dy){
+                dy = coordinate;
+            }
+        }
+        System.out.println(dx + " " + dy);
+        for (int i = 0; i < 4; i++) {
+            arrX[i] -= dx-20;
+            arrY[i] -= dy-20;
+        }
+    }
 }

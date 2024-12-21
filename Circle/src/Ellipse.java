@@ -8,28 +8,29 @@ public class Ellipse extends Circle {
     public Ellipse(int diff, int radius) {
         this(radius);
         this.setRadius(getRandInt(80, 250));
-        this.diff = ((double) diff)/100;
+        this.diff = ((double) diff) / 100;
     }
 
     public Ellipse(int radius) {
         super(radius);
         this.orientation = Orientation.VERTICAL;
+        this.startPoint.setHorizontalPosition(getRandInt(160, 1200 - (radius * 2) - 5));
+        this.startPoint.setVerticalPosition(getRandInt(150, 751 - radius * 2));
     }
 
     public void show(Graphics g) {
         g.setColor(getColor());
         if (orientation == Orientation.HORIZONTAL) {
-            g.drawOval(this.startPoint.getHorizontalPosition()-(getRadius()/2), this.startPoint.getVerticalPosition()-(int)(getRadius()/1.5), getRadius() * 2, (int) (getRadius() * diff));
+            g.drawOval(this.startPoint.getHorizontalPosition() - (getRadius() / 2), this.startPoint.getVerticalPosition() - (int) (getRadius() / 1.5), getRadius() * 2, (int) (getRadius() * diff));
         } else {
-            g.drawOval(this.startPoint.getHorizontalPosition() - (getRadius()/2), this.startPoint.getVerticalPosition() - (int)(getRadius()/1.5), (int) (getRadius() * diff), getRadius() * 2);
+            g.drawOval(this.startPoint.getHorizontalPosition() - (getRadius() / 2), this.startPoint.getVerticalPosition() - (int) (getRadius() / 1.5), (int) (getRadius() * diff), getRadius() * 2);
         }
     }
 
     protected void changeOrientation() {
         if (this.orientation == Orientation.HORIZONTAL) {
             this.orientation = Orientation.VERTICAL;
-        }
-        else this.orientation = Orientation.HORIZONTAL;
+        } else this.orientation = Orientation.HORIZONTAL;
     }
 
     @Override
@@ -37,5 +38,15 @@ public class Ellipse extends Circle {
         int newX = startPoint.getHorizontalPosition() + dx;
         int newY = startPoint.getVerticalPosition() + dy;
         return newX > 100 && newY > 100 && !(newX > 1100 - this.getRadius() * 1.2) && !(newY > 550 - this.getRadius() * 1.2);
+    }
+
+    @Override
+    public void moveToBasePos() {
+        this.startPoint.setHorizontalPosition(100);
+        this.startPoint.setVerticalPosition(120);
+    }
+
+    private enum Orientation {
+        HORIZONTAL, VERTICAL;
     }
 }

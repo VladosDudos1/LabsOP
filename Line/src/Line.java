@@ -84,4 +84,14 @@ public class Line extends Figure {
         endPoint.setHorizontalPosition(newX+deltaX);
         endPoint.setVerticalPosition(newY+deltaY);
     }
+
+    @Override
+    public void moveToBasePos() {
+        int deltaX = endPoint.getHorizontalPosition() - startPoint.getHorizontalPosition();
+        int deltaY = endPoint.getVerticalPosition() - startPoint.getVerticalPosition();
+        startPoint.setHorizontalPosition(20);
+        startPoint.setVerticalPosition(20);
+        endPoint.setHorizontalPosition(20 + deltaX);
+        endPoint.setVerticalPosition(20 + deltaY);
+    }
 }

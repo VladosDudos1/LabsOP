@@ -1,4 +1,7 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -21,6 +24,19 @@ public class FigureFabric {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public static Figure randomFigure(JFrame frame) {
+        var type = FigureType.values()[Figure.getRandInt(0, 6)];
+        Map<String, Integer> map = switch (type){
+            case CIRCLE -> FabricDialog.getInfoFromCircleDialog(frame, "Настройка круга");
+            case RING -> FabricDialog.getInfoFromCircleDialog(frame, "Настройка кольца");
+            case ELLIPSE -> FabricDialog.getInfoFromEllipseDialog(frame, "Настройка эллипса");
+            case LINE -> FabricDialog.getInfoFromLineDialog(frame, "Настройка линии");
+            case RECTANGLE -> FabricDialog.getInfoFromRectangleDialog(frame, "Настройка прямоугольника");
+            default -> new HashMap<>();
+        };
+        return createFigure(type, map);
     }
 
     private static Line createLine(int length, int rotation){

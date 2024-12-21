@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.Map;
 
 public class Ring extends Circle {
     private Circle innerCircle;
@@ -30,6 +29,13 @@ public class Ring extends Circle {
     @Override
     protected void additionalMoveSetup(int dx, int dy) {
         super.additionalMoveSetup(dx, dy);
+        innerCircle.startPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius() - innerCircle.getRadius(),
+                this.startPoint.getHorizontalPosition() + this.getRadius() - innerCircle.getRadius());
+    }
+
+    @Override
+    public void moveToBasePos() {
+        super.moveToBasePos();
         innerCircle.startPoint = new Point(this.startPoint.getVerticalPosition() + this.getRadius() - innerCircle.getRadius(),
                 this.startPoint.getHorizontalPosition() + this.getRadius() - innerCircle.getRadius());
     }

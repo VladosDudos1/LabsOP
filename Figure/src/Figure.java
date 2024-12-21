@@ -18,6 +18,8 @@ public abstract class Figure {
         additionalMoveSetup(dx, dy);
     }
 
+    public abstract void moveToBasePos();
+
     protected Figure() {
         color[0] = getRandInt(0, 255);
         color[1] = getRandInt(0, 255);

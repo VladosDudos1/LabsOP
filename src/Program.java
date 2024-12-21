@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Program {
     private static final int BUTTON_WIDTH = 300;
-    private static final int BUTTON_HEIGHT = 50;
+    private static final int BUTTON_HEIGHT = 45;
     static JFrame frame = new JFrame("4218 Chiypesh Lab");
     static JButton buttonChooseFigure = ButtonFabric.createButton("Создать фигуру");
     static JButton buttonLine = ButtonFabric.createButton("Создать линию");
@@ -24,8 +24,11 @@ public class Program {
     static JButton buttonEllipseFunc = ButtonFabric.createButton("Изменить эллипс");
     static JButton buttonTrapezoidFunc = ButtonFabric.createButton("Изменить трапецию");
     static JButton buttonRhombusFunc = ButtonFabric.createButton("Изменить ромб");
+    static JButton buttonRandFig = ButtonFabric.createButton("Случайная фигура");
+    static JButton buttonMoveUltimate = ButtonFabric.createButton("Переместить все фигуры");
     static JButton buttonMove = ButtonFabric.createButton("Переместить фигуру");
     static JButton buttonDelete = ButtonFabric.createButton("Удалить фигуру");
+    static JButton buttonClear = ButtonFabric.createButton("Очистить список");
     static DrawingPanel drawingPanel = new DrawingPanel();
     static ArrayList<Figure> figures = new ArrayList<>();
     static JDialog dialog;
@@ -42,15 +45,18 @@ public class Program {
         frame.setResizable(false);
 
         buttonChooseFigure.setBounds(frame.getWidth() - BUTTON_WIDTH, 0, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonLineFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 55, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonRectFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 110, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonCircleFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 165, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonRingFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 220, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonEllipseFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 275, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonTrapezoidFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 330, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonRhombusFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 385, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonMove.setBounds(frame.getWidth() - BUTTON_WIDTH, 500, BUTTON_WIDTH, BUTTON_HEIGHT);
-        buttonDelete.setBounds(frame.getWidth() - BUTTON_WIDTH, 555, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonLineFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 50, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonRectFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 100, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonCircleFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 150, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonRingFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 200, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonEllipseFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 250, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonTrapezoidFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 300, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonRhombusFunc.setBounds(frame.getWidth() - BUTTON_WIDTH, 350, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonRandFig.setBounds(frame.getWidth() - BUTTON_WIDTH, 400, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonMoveUltimate.setBounds(frame.getWidth() - BUTTON_WIDTH, 550, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonMove.setBounds(frame.getWidth() - BUTTON_WIDTH, 600, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonDelete.setBounds(frame.getWidth() - BUTTON_WIDTH, 650, BUTTON_WIDTH, BUTTON_HEIGHT);
+        buttonClear.setBounds(frame.getWidth() - BUTTON_WIDTH, 700, BUTTON_WIDTH, BUTTON_HEIGHT);
 
         frame.add(buttonLineFunc);
         frame.add(buttonRectFunc);
@@ -62,6 +68,9 @@ public class Program {
         frame.add(buttonRhombusFunc);
         frame.add(buttonMove);
         frame.add(buttonDelete);
+        frame.add(buttonClear);
+        frame.add(buttonRandFig);
+        frame.add(buttonMoveUltimate);
         frame.setLayout(null);
 
         frame.add(drawingPanel);
@@ -85,7 +94,7 @@ public class Program {
         buttonLineFunc.addActionListener(al -> {
             for (Figure figure : figures.reversed()) {
                 if (figure instanceof Line) {
-                    ((Line) figure).changeRotation(figure.getRandInt(360));
+                    ((Line) figure).changeRotation(Figure.getRandInt(360));
                     drawingPanel.repaint();
                     return;
                 }
@@ -99,7 +108,7 @@ public class Program {
         buttonRectFunc.addActionListener(al -> {
             for (Figure f : figures.reversed()) {
                 if (f instanceof Rectangle) {
-                    ((Rectangle) f).changeLinearSize(f.getRandInt(1300), f.getRandInt(700));
+                    ((Rectangle) f).changeLinearSize(Figure.getRandInt(1300), Figure.getRandInt(700));
                     drawingPanel.repaint();
                     return;
                 }
@@ -184,6 +193,19 @@ public class Program {
         buttonDelete.addActionListener(al -> {
             figures.removeLast();
             drawingPanel.repaint();
+        });
+        buttonClear.addActionListener(al -> {
+            figures.clear();
+            drawingPanel.repaint();
+        });
+        buttonRandFig.addActionListener(al -> {
+            addFigure(FigureFabric.randomFigure(frame));
+        });
+        buttonMoveUltimate.addActionListener(al -> {
+            for (Figure figure : figures.reversed()) {
+                figure.moveToBasePos();
+                drawingPanel.repaint();
+            }
         });
     }
 

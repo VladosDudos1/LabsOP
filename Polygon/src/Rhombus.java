@@ -70,4 +70,22 @@ public class Rhombus extends FourAngle {
             vertex.setVerticalPosition(vertex.getVerticalPosition() + dy);
         }
     }
+
+    @Override
+    public void moveToBasePos() {
+        int dx = vertices[0].getHorizontalPosition();
+        int dy = vertices[0].getVerticalPosition();
+        for (Point vertex : vertices) {
+            if (vertex.getHorizontalPosition() < dx){
+                dx = vertex.getHorizontalPosition();
+            }
+            if (vertex.getVerticalPosition() < dy){
+                dy = vertex.getVerticalPosition();
+            }
+        }
+        for (Point vertex : vertices) {
+            vertex.setHorizontalPosition(vertex.getHorizontalPosition() - dx + 20);
+            vertex.setVerticalPosition(vertex.getVerticalPosition() - dy + 20);
+        }
+    }
 }

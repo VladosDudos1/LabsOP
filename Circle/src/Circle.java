@@ -15,7 +15,7 @@ public class Circle extends Figure {
         this();
         this.radius = radius;
         this.startPoint.setHorizontalPosition(getRandInt(160, 1200 - (radius * 2) - 5));
-        this.startPoint.setVerticalPosition(getRandInt(100, 681-radius*2));
+        this.startPoint.setVerticalPosition(getRandInt(100, 701-radius*2));
     }
 
     protected Circle() {
@@ -60,5 +60,11 @@ public class Circle extends Figure {
         int newY = startPoint.getVerticalPosition() + dy;
         this.startPoint.setHorizontalPosition(newX);
         this.startPoint.setVerticalPosition(newY);
+    }
+
+    @Override
+    public void moveToBasePos() {
+        this.startPoint.setHorizontalPosition(20);
+        this.startPoint.setVerticalPosition(20);
     }
 }

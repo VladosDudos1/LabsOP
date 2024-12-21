@@ -42,4 +42,10 @@ public class Rectangle extends FourAngle {
         var maxY = Math.min((1290 - height), startPoint.getVerticalPosition()+100);
         this.startPoint.setHorizontalPosition(getRandInt(maxX));
         this.startPoint.setVerticalPosition(getRandInt(maxY));}
+
+    @Override
+    public void moveToBasePos() {
+        this.startPoint.setHorizontalPosition(20);
+        this.startPoint.setVerticalPosition(20);
+    }
 }
