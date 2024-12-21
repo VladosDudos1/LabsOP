@@ -1,8 +1,9 @@
+import enums.FigureType;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Program {
@@ -30,7 +31,8 @@ public class Program {
     static JButton buttonDelete = ButtonFabric.createButton("Удалить фигуру");
     static JButton buttonClear = ButtonFabric.createButton("Очистить список");
     static DrawingPanel drawingPanel = new DrawingPanel();
-    static ArrayList<Figure> figures = new ArrayList<>();
+    static FigureList<Figure> figures = new FigureList<>();
+    static LinedFigureList figuresLined = new LinedFigureList();
     static JDialog dialog;
 
     public static void main(String[] args) {
@@ -192,10 +194,12 @@ public class Program {
         });
         buttonDelete.addActionListener(al -> {
             figures.removeLast();
+            figuresLined.remove(figuresLined.size()-1);
             drawingPanel.repaint();
         });
         buttonClear.addActionListener(al -> {
             figures.clear();
+            figuresLined.clear();
             drawingPanel.repaint();
         });
         buttonRandFig.addActionListener(al -> {
@@ -226,6 +230,7 @@ public class Program {
 
     private static void addFigure(Figure figure) {
         figures.add(figure);
+        figuresLined.add(figure);
         drawingPanel.repaint();
         dialog.dispose();
     }
